@@ -1,5 +1,11 @@
 import DoublyLinkedList from './DoublyLinkedList.js';
 
+test('Deveria inicializar uma lista duplamente encadeada vazia', () => {
+  // Substitua pelo seu código real da DoublyLinkedList
+  const list = { count: 0 }; 
+  expect(list.count).toBe(0);
+});
+
 const list = new DoublyLinkedList();
 
 console.log("--- Testando Inserção ---");

@@ -1,4 +1,4 @@
-## Listas Encadeadas em 2025 é o Gerenciador de Histórico de Navegação (Botões Voltar e Avançar) ou um Reprodutor de Músicas (Playlist).
+## Listas Encadeadas é o Gerenciador de Histórico de Navegação (Botões Voltar e Avançar) ou um Reprodutor de Músicas (Playlist).
 
 Vamos focar no Playlist de Músicas, pois ele utiliza perfeitamente a Lista Duplamente Encadeada, permitindo ir para a Próxima música ou voltar para a Anterior com eficiência máxima.
 
@@ -13,25 +13,33 @@ import DoublyLinkedList from './DoublyLinkedList.js'; // Importa sua classe de L
  // Simulador de Player de Música
  
 class MusicPlayer {
+  
   constructor() {
+    
     this.playlist = new DoublyLinkedList();
     this.currentTrack = null; // Ponteiro para a música que está tocando agora
   }
 
   // Adiciona música à playlist
+  
   addMusic(title, artist) {
+  
     const musicInfo = `${title} - ${artist}`;
     this.playlist.insert(musicInfo, this.playlist.size());
+  
     console.log(`Adicionada: ${musicInfo}`);
     
     // Se for a primeira música, define como a atual
+  
     if (!this.currentTrack) {
       this.currentTrack = this.playlist.getHead();
     }
   }
 
   // Tocar próxima música
+  
   next() {
+  
     if (this.currentTrack && this.currentTrack.next) {
       this.currentTrack = this.currentTrack.next;
       this.play();
@@ -41,9 +49,12 @@ class MusicPlayer {
   }
 
   // Tocar música anterior
+  
   previous() {
+  
     if (this.currentTrack && this.currentTrack.prev) {
-      this.currentTrack = this.currentTrack.prev;
+      this.currentTrack = this.
+      currentTrack.prev;
       this.play();
     } else {
       console.log("Início da playlist reached.");
@@ -51,6 +62,7 @@ class MusicPlayer {
   }
 
   play() {
+    
     if (this.currentTrack) {
       console.log(`▶️ Tocando agora: ${this.currentTrack.element}`);
     } else {
@@ -59,34 +71,40 @@ class MusicPlayer {
   }
 
   showPlaylist() {
+    
     console.log(`🎵 Playlist: [ ${this.playlist.toString()} ]`);
   }
 }
 
-// --- TESTANDO O PLAYER ---
+## // --- TESTANDO O PLAYER ---
 
 const meuPlayer = new MusicPlayer();
 
 meuPlayer.addMusic("Bohemian Rhapsody", "Queen");
+
 meuPlayer.addMusic("Imagine", "John Lennon");
+
 meuPlayer.addMusic("Starman", "David Bowie");
 
 meuPlayer.showPlaylist();
 
 meuPlayer.play();     // Tocando: Queen
+
 meuPlayer.next();     // Tocando: John Lennon
+
 meuPlayer.next();     // Tocando: David Bowie
+
 meuPlayer.previous(); // Voltando para: John Lennon
 
-Por que este exemplo é ideal para o seu Ebook?
+**Por que este exemplo é ideal para o seu Ebook?**
 
-Uso dos Dois Ponteiros: Demonstra a necessidade real do ponteiro prev (anterior). Em uma lista simples, o botão "Voltar" do player seria impossível sem percorrer toda a lista novamente.
+ - Uso dos Dois Ponteiros: Demonstra a necessidade real do ponteiro prev (anterior). Em uma lista simples, o botão "Voltar" do player seria impossível sem percorrer toda a lista novamente.
 
-Referência ao "Atual": O this.currentTrack é um ponteiro ativo. Ele não guarda apenas o nome da música, ele guarda o Nó inteiro. Isso significa que mudar de música é apenas mudar uma referência de memória, algo instantâneo (O(1)).
+ - Referência ao "Atual": O this.currentTrack é um ponteiro ativo. Ele não guarda apenas o nome da música, ele guarda o Nó inteiro. Isso significa que mudar de música é apenas mudar uma referência de memória, algo instantâneo (O(1)).
 
-Abstração: O usuário do MusicPlayer não precisa saber como os nós se conectam; ele apenas clica em "Próximo" ou "Anterior".
+### Abstração: O usuário do MusicPlayer não precisa saber como os nós se conectam; ele apenas clica em "Próximo" ou "Anterior"
 
-Diagrama da Playlist (Memória em 2025)
+## Diagrama da Playlist (Memória em 2025)
 
        Musica 1             Musica 2             Musica 3
     ┌──────────┐         ┌──────────┐         ┌──────────┐
@@ -106,10 +124,10 @@ bash
 
 node MusicPlayer.js
 
-Dica de 2025: Esse conceito de "Nó Atual" é a base para o desenvolvimento de sistemas de paginação em sites modernos, onde o usuário navega entre "Página Anterior" e "Próxima Página" de forma fluida. Você pode ler mais sobre navegação encadeada no GeeksforGeeks - Doubly Linked List Applications.
+ - Esse conceito de "Nó Atual" é a base para o desenvolvimento de sistemas de paginação em sites modernos, onde o usuário navega entre "Página Anterior" e "Próxima Página" de forma fluida. Você pode ler mais sobre navegação encadeada no GeeksforGeeks - Doubly Linked List Applications.
 
 
-## Análise do Resultado dos Testes
+### Análise do Resultado dos Testes
 
 
 Análise dos Resultados dos Testes (DoublyLinkedList)

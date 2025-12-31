@@ -1,6 +1,6 @@
-##**Estruturas de Dados: Lista Encadeada (LinkedList)**
+## Estruturas de Dados: Lista Encadeada (LinkedList)
 
-Exercício 1.
+### Exercício 1.
 
 class Node {
     constructor(value) {
@@ -81,29 +81,38 @@ class List {
     }
 }
 
-// Demonstração de uso:
+### // Demonstração de uso:
+
 const list = new List();
+
 list.append(1);
+
 list.append(2);
+
 list.append(3);
 
-console.log("Valores iniciais:", list.values()); // [1, 2, 3]
+console.log("Valores iniciais:", list.
+values()); // [1, 2, 3]
+
 list.delete(1); // Remove o '2'
+
 list.append(4);
 
-console.log("Após deletar pos(1) e adicionar 4:", list.values()); // [1, 3, 4]
+console.log("Após deletar pos(1) e 
+adicionar 4:", list.values()); // [1, 3, 4]
+
 console.log("Valor na posição 2:", list.get(2)); // 4
 
 export default List;
 
-## ///////////////////////////////////////////////////////////////////////////////
 
-**Estruturas de Dados: Lista Encadeada (LinkedList)**
+
+## Estruturas de Dados: Lista Encadeada (LinkedList)
 
 Este guia detalha a implementação de uma lista encadeada simples em JavaScript, explicando a lógica por 
 trás de cada componente e método.
 
-1. A Estrutura do Nó (class Node)
+### 1. A Estrutura do Nó (class Node)
 
 O Nó é a unidade básica da lista. Imagine-o como um elo de uma corrente.
 
@@ -112,21 +121,21 @@ O Nó é a unidade básica da lista. Imagine-o como um elo de uma corrente.
  - next: É o "ponteiro" ou referência. Ele começa como null porque, no momento da criação, o nó ainda não 
  está conectado a outro.
 
-2. A Classe Principal (class List)
+## 2. A Classe Principal (class List)
 
  - constructor(): Inicializa a lista como vazia, definindo this.head = null.
 
  - head (Cabeça): É o único ponto de entrada da lista. Se você perder a referência da cabeça, perderá o acesso a todos os outros nós (eles serão removidos da memória pelo Garbage Collector).
 
-3. Método append(value) — Adicionar ao Final
+## 3. Método append(value) — Adicionar ao Final
 
-3.1. Este método percorre a lista até encontrar o último elemento para pendurar o novo nó.
+ - 3.1. Este método percorre a lista até encontrar o último elemento para pendurar o novo nó.
 
-3.2 Cria uma nova instância de Node.
+ - 3.2 Cria uma nova instância de Node.
 
- - Caso A (Lista Vazia): Se head for null, o novo nó torna-se a head.
+   - Caso A (Lista Vazia): Se head for null, o novo nó torna-se a head.
 
- - Caso B (Lista com itens):
+   - Caso B (Lista com itens):
 
    - Criamos uma variável auxiliar current que começa no head.
 
@@ -134,19 +143,19 @@ O Nó é a unidade básica da lista. Imagine-o como um elo de uma corrente.
 
    - Ao chegar no nó cujo next é null, conectamos o novo nó: current.next = newNode.
 
-4. Método get(position) — Buscar por Índice
+## 4. Método get(position) — Buscar por Índice
 
 Como listas encadeadas não possuem índices físicos como os Arrays, precisamos contar manualmente:
 
-4.1. Começamos pela head com um contador i = 0.
+ - 4.1. Começamos pela head com um contador i = 0.
 
-4.2. O while percorre os nós enquanto a lista não terminar E i for menor que a posição desejada.
+ - 4.2. O while percorre os nós enquanto a lista não terminar E i for menor que a posição desejada.
 
-4.3. A cada passo, avançamos: current = current.next e i++.
+ - 4.3. A cada passo, avançamos: current = current.next e i++.
 
-4.4. Retorno: Se o nó existir, retornamos seu value; caso contrário, undefined.
+ - 4.4. Retorno: Se o nó existir, retornamos seu value; caso contrário, undefined.
 
-5. Método delete(position) — Remover um Item
+## 5. Método delete(position) — Remover um Item
 
 Este é o método mais complexo, pois exige a técnica de "re-encadeamento" para não quebrar a corrente.
 
@@ -163,31 +172,31 @@ Este é o método mais complexo, pois exige a técnica de "re-encadeamento" para
 
    - O nó excluído fica isolado e é removido automaticamente da memória.
 
-6. Método values() — Visualizar a Lista
+## 6. Método values() — Visualizar a Lista
 
-6.1 Facilita a depuração transformando a estrutura de nós em um formato legível:
+ - 6.1 Facilita a depuração transformando a estrutura de nós em um formato legível:
 
-6.2 Cria um array vazio chamado values.
+ - 6.2 Cria um array vazio chamado values.
 
-6.3 Percorre a lista do início ao fim.
+ - 6.3 Percorre a lista do início ao fim.
 
-6.4 Adiciona o value de cada nó ao array via .push().
+ - 6.4 Adiciona o value de cada nó ao array via .push().
 
-6.5 Retorna o array (ex: [1, 2, 3]).
+ - 6.5 Retorna o array (ex: [1, 2, 3]).
 
-7. Fluxo de Execução Exemplo
+## 7. Fluxo de Execução Exemplo
 
-7.1 Considere as operações abaixo:
+ - 7.1 Considere as operações abaixo:
 
-7.2 append(1), append(2), append(3): Resulta em 1 -> 2 -> 3 -> null.
+ - 7.2 append(1), append(2), append(3): Resulta em 1 -> 2 -> 3 -> null.
 
-7.3 delete(1): Localiza o valor 2. O nó 1 passa a apontar diretamente para o 3. Lista: 1 -> 3 -> null.
+ - 7.3 delete(1): Localiza o valor 2. O nó 1 passa a apontar diretamente para o 3. Lista: 1 -> 3 -> null.
 
-7.4 append(4): Caminha até o 3 e adiciona o 4. Lista: 1 -> 3 -> 4 -> null.
+ - 7.4 append(4): Caminha até o 3 e adiciona o 4. Lista: 1 -> 3 -> 4 -> null.
 
-7.5 get(2): Pula o índice 0 (1), pula o 1 (3) e alcança o 2, retornando o valor 4
+ - 7.5 get(2): Pula o índice 0 (1), pula o 1 (3) e alcança o 2, retornando o valor 4
 
-**1. Representação de um Nó (Node)**
+## 1. Representação de um Nó (Node)
 
 Cada objeto Node que você criou tem esta estrutura interna:
 
@@ -195,10 +204,11 @@ Cada objeto Node que você criou tem esta estrutura interna:
 │     NODE      │
 ├───────────────┤
 │ value: (dado) │
-│ next:  (ref)  │──▶ Próximo Nó ou NULL
+│ next:  (ref)  │──▶   Próximo Nó ou NULL
 └───────────────┘
 
-**2. A Lista na Memória (Após append(1), append(2), append(3))**
+
+## 2. A Lista na Memória (Após append(1), append(2), append(3))
 
 O this.head é o seu ponto de partida. Ele aponta para o primeiro nó.
 
@@ -211,17 +221,17 @@ O this.head é o seu ponto de partida. Ele aponta para o primeiro nó.
   └──────────────┘       └──────────────┘       └──────────────┘
 
 
-**3. Operação delete(1) (Removendo a posição 1)**
+## 3. Operação delete(1) (Removendo a posição 1)
 
 Esta é a parte mais importante. Para deletar o valor 2, nós não o "apagamos" fisicamente, 
 nós mudamos a direção da seta do nó anterior.
 
-**Passo 1: Identificar o anterior e o atual**
+## Passo 1: Identificar o anterior e o atual
 
  - previous = Node 0 (valor 1)
  - current = Node 1 (valor 2)
 
-**Passo 2: O "Pulo do Gato" (previous.next = current.next)**
+## Passo 2: O "Pulo do Gato" (previous.next = current.next)
 
 Fazemos o Node 0 apontar para onde o Node 1 estava apontando.
 
@@ -243,14 +253,16 @@ Fazemos o Node 0 apontar para onde o Node 1 estava apontando.
 | delete | Ajusta o "ponteiro" do nó anterior para o próximo do atual. | O(n) |
 
 
-**EXERCÍCIO 2**
+## EXERCÍCIO 2
 
-**Esta versão inclui a lógica de percorrer a lista até uma posição específica, utilizando os métodos: 
-indexOf, isEmpty,size, toString e  getHead.
+**Esta versão inclui a lógica de percorrer a lista até uma posição específica, utilizando os métodos:**
+
+**indexOf, isEmpty,size, toString e  getHead.**
 
 Implementação: LinkedList.js
 
 class Node {
+    
     constructor(element) {
         this.element = element;
         this.next = null;
@@ -264,6 +276,7 @@ class LinkedList {
     }
 
     // Insere em uma posição específica (usando laço for)
+    
     insert(element, index) {
         if (index >= 0 && index <= this.count) {
             const node = new Node(element);
@@ -272,10 +285,12 @@ class LinkedList {
                 this.head = node;
             } else {
                 let previous = this.head;
+                
                 // Laço for para atingir a posição desejada
                 for (let i = 0; i < index - 1; i++) {
                     previous = previous.next;
                 }
+                
                 node.next = previous.next;
                 previous.next = node;
             }
@@ -349,21 +364,26 @@ const lista = new LinkedList();
 console.log("Está vazia?", lista.isEmpty()); // true
 
 lista.insert("A", 0); // [A]
+
 lista.insert("C", 1); // [A, C]
-lista.insert("B", 1); // [A, B, C] - Inseriu na posição 1 usando o laço for
+
+lista.insert("B", 1); // [A, B, C] - 
+
+Inseriu na posição 1 usando o laço for
 
 console.log("Lista atual:", lista.toString()); // "A, B, C"
+
 console.log("Tamanho:", lista.size());         // 3
+
 console.log("Posição do elemento 'B':", lista.indexOf("B")); // 1
 
 lista.removeAt(2); // Remove o "C"
 console.log("Após remover posição 2:", lista.toString()); // "A, B"
 
-## /////////////////////////////////////////////////////////////////////////////////
 
-Explicação dos Pontos Chave:
+## Explicação dos Pontos Chave:
 
-1. O Laço for: Diferente do método append que apenas busca o final, aqui o for para 
+ 1. O Laço for: Diferente do método append que apenas busca o final, aqui o for para 
 exatamente no nó anterior à posição onde você deseja inserir ou remover. 
 
 Isso permite "desconectar" e "reconectar" as setas (next) para incluir o novo elemento.
@@ -377,7 +397,9 @@ zero manualmente.
 4.  toString: Converte a estrutura de nós encadeados em uma string separada por vírgulas, facilitando 
 a visualização no console.
 
-## **1. Inserção em Posição Específica: insert(element, 1)** DIAGRAMAS
+## 1. Inserção em Posição Específica: insert(element, 
+
+**1) DIAGRAMAS**
 
 Imagine que temos a lista [A, C] e queremos inserir "B" na posição 1.
 
@@ -392,11 +414,11 @@ Estado Inicial:
 
 O Laço for encontra o previous (índice 0):
 
-# 1. Criamos o newNode (B).
+## 1. Criamos o newNode (B).
 
-# 2. Fazemos newNode.next = previous.next (B agora aponta para C).
+## 2. Fazemos newNode.next = previous.next (B agora aponta para C).
 
-# 3.Fazemos previous.next = newNode (A agora aponta para B).
+## 3.Fazemos previous.next = newNode (A agora aponta para B).
 
 Estado Final:
 
@@ -408,7 +430,7 @@ Estado Final:
                   │             ▲
                   └─────────────┘
 
-2. Remoção em Posição Específica: removeAt(1)
+## 2. Remoção em Posição Específica: removeAt(1)
 
 Vamos remover o elemento "B" da posição 1.
 
@@ -416,9 +438,9 @@ Vamos remover o elemento "B" da posição 1.
 
 O laço for caminha até o nó anterior à remoção (nó A).
 
-# 21 Identificamos o alvo: current = previous.next (B).
+## 2.1 Identificamos o alvo: current = previous.next (B).
 
-# 2. O Pulo: previous.next = current.next (A passa a apontar direto para C).
+## 2. O Pulo: previous.next = current.next (A passa a apontar direto para C).
 
       pos: 0              (DELETADO)              pos: 1
     ┌──────────┐          ┌──────────┐          ┌──────────┐
@@ -440,9 +462,7 @@ O laço for caminha até o nó anterior à remoção (nó A).
 | getHead | - | Apenas entrega a "chave da casa" (o primeiro nó). |
 | toString | A + ", " + B | Percorre a lista acumulando os textos em uma única variável de texto. |
 
-## ////////////////////////////////////////////////////////////////////////////////////////////
-
-## **EXEMPLO 3**
+## EXEMPLO 3
 
 class DoublyNode {
     constructor(element) {
@@ -554,9 +574,8 @@ class DoublyLinkedList {
 
 export default DoublyLinkedList;
 
-## //////////////////////////////////////////////////////////
 
-##**2. Diagrama Visual: A Conexão Dupla - Exemplo 3**
+## 2. Diagrama Visual: A Conexão Dupla - Exemplo 3
 
 
 Diferente da lista simples, aqui as "setas" vão e voltam.
@@ -585,7 +604,7 @@ Para inserir B, quatro ponteiros devem ser atualizados:
     └──────┘        └──────┘        └──────┘
 
 
-3. Diferenciais para o seu Ebook
+## 3. Diferenciais para o seu Ebook
 
 Ao documentar este código no seu projeto, destaque estes pontos:
 
@@ -596,37 +615,50 @@ Ao documentar este código no seu projeto, destaque estes pontos:
 3. Complexidade de Código: O método insert e removeAt exige mais cuidado, pois se você esquecer de atualizar 
 um dos quatro ponteiros, a lista "quebra".
 
-##1.**Arquivo de Teste Manual: index.js**
+## 1.Arquivo de Teste Manual: index.js
 
 import DoublyLinkedList from './DoublyLinkedList.js';
 
 const list = new DoublyLinkedList();
 
 console.log("--- Testando Inserção ---");
+
 list.insert("Elemento A", 0); // Início: [A]
+
 list.insert("Elemento C", 1); // Fim: [A, C]
+
 list.insert("Elemento B", 1); // Meio: [A, B, C]
+
 console.log("Lista (toString):", list.toString()); 
+
 console.log("Tamanho (size):", list.size());
 
 console.log("\n--- Testando Posições e Referências ---");
+
 console.log("Cabeça (head):", list.getHead().element);
+
 console.log("Cauda (tail):", list.getTail().element);
+
 console.log("Índice do 'B':", list.indexOf("Elemento B"));
 
 console.log("\n--- Testando Remoção ---");
-const removido = list.removeAt(1); // Remove "B"
+const removido = list.removeAt(1); // 
+Remove "B"
+
 console.log("Removido:", removido);
+
 console.log("Lista após remoção:", list.toString());
+
 console.log("Nova Cauda:", list.getTail().element);
 
 console.log("\n--- Verificando se está vazia ---");
+
 console.log("Está vazia?", list.isEmpty());
 
 
-##**2. Como rodar no terminal do VS Code**
+## 2. Como rodar no terminal do VS Code
 
-# No terminal (atalho Ctrl + '), execute:
+**No terminal (atalho Ctrl + '), execute:**
 
 bash
 
@@ -634,11 +666,13 @@ bash
 
 O que observar no teste manual (Dicas de Estudo):
 
-1. A Conexão Dupla: Como é uma lista duplamente ligada, experimente acessar o nó anterior 
-manualmente para provar que a conexão existe. No seu index.js, adicione:
+1. A Conexão Dupla: Como é uma lista duplamente ligada, experimente acessar o nó anterior manualmente para provar que a conexão existe. 
+
+No seu index.js, adicione:
 
 // Acessando o 'A' a partir do 'C' voltando pelo ponteiro 'prev'
-console.log("Anterior do último:", list.getTail().prev.element); 
+console.log("Anterior do último:", list.
+getTail().prev.element); 
 
 2. Consistência da Cauda (tail): Sempre que você remover o último elemento (list.removeAt(list.size() - 1)), 
 verifique se o getTail() foi atualizado para o elemento que agora ficou por último.
@@ -646,15 +680,19 @@ verifique se o getTail() foi atualizado para o elemento que agora ficou por últ
 3. Lógica do for: Note que no método insert da lista dupla, o laço percorre os elementos para encontrar 
 onde "abrir espaço" para as novas setas prev e next.
 
-##**1. Lista Ligada Circular (CircularLinkedList.js)**
+## 1. Lista Ligada Circular (CircularLinkedList.js)
 
 Nesta lista, tail.next aponta para head. Isso permite percorrer a lista infinitamente em ciclos.
 
 javascript
 
-import LinkedList from './LinkedList.js'; // Reaproveita a lógica base
+import LinkedList from './LinkedList.js'; 
 
-class CircularLinkedList extends LinkedList {
+// Reaproveita a lógica base
+
+class CircularLinkedList extends 
+LinkedList {
+
     insert(element, index) {
         if (index >= 0 && index <= this.count) {
             const node = { element, next: null };
@@ -693,7 +731,7 @@ class CircularLinkedList extends LinkedList {
    └──────┘       └──────┘       └──────┘
      HEAD                          TAIL
 
-# 2. Lista Ordenada (SortedLinkedList.js)
+## 2. Lista Ordenada (SortedLinkedList.js)
 
 Diferente das outras, ela não aceita um índice na inserção. Ela compara o valor e insere na posição correta para manter a ordem.
 
@@ -704,6 +742,7 @@ import LinkedList from './LinkedList.js';
 const Compare = { LESS_THAN: -1, BIGGER_THAN: 1 };
 
 class SortedLinkedList extends LinkedList {
+ 
     constructor() {
         super();
     }
@@ -735,9 +774,8 @@ class SortedLinkedList extends LinkedList {
 }
 
 
-# ////////////////////////////////////////////////////////////////////////
 
-#**Diagrama Ordenado**
+## Diagrama Ordenado
 
 Se inserirmos o número 15 na lista [10, 20]:
 
@@ -758,11 +796,10 @@ Insere na posição 1.
 | Circular | O último nó volta para o primeiro. | Sistemas de turnos (round-robin), playlists de música. |
 | Ordenada | Mantém a ordem no momento da inserção. | Listas de recordes (high scores), agendas. |
 
-# ///////////////////////////////////////////////////////////////////////////////////
 
-Exercício 4
+## Exercício 4
 
-##**1. Estrutura do Nó (class Node)**
+## 1. Estrutura do Nó (class Node)
 
 O nó armazena o dado (data) e a referência para o próximo elemento (next).
 
@@ -774,7 +811,7 @@ O nó armazena o dado (data) e a referência para o próximo elemento (next).
 └───────────────┘
 
 
-##**2. Métodos de Inserção**
+## 2. Métodos de Inserção
 
 insertFirst(data)
 
@@ -804,21 +841,21 @@ current guarda o nó que estava naquela posição.
 
 A manobra: previous.next = node e node.next = current.
 
-Diagrama (Inserindo 500 no índice 2):
+**Diagrama (Inserindo 500 no índice 2):**
 
 Índice:    0          1               2
 Lista:   [A] ──▶ [B] (prev)      [C] (curr)
                   │               ▲
                   └──▶ [500] ─────┘
 
-3. Métodos de Busca e Remoção
+## 3. Métodos de Busca e Remoção
 
 getAt(index)
 
 Percorre a lista com um contador. Quando count == index, ele exibe o dado. Note que este método percorre a lista 
 inteira mesmo após encontrar o item (pode ser otimizado com um return).
 
-removeAt(index)
+**removeAt(index)**
 
 Para remover, o código "pula" o nó do índice escolhido.
 
@@ -828,7 +865,7 @@ Para remover, o código "pula" o nó do índice escolhido.
 
  - A manobra: previous.next = current.next.
 
-Diagrama:
+**Diagrama:**
 
 Antes:  [A] ──▶ [B] (remover) ──▶ [C]
 Depois: [A] ────────────────────▶ [C]
@@ -838,14 +875,18 @@ clearList()
 Zera a lista. Em JavaScript, basta apontar a head para null. Como não há mais referências para os nós, o sistema limpa 
 a memória automaticamente.
 
-4. Fluxo do Exemplo Fornecido
+## 4. Fluxo do Exemplo Fornecido
 
 Executando os comandos do seu código:
 
 insertFirst(100): [100]
+
 insertFirst(200): [200, 100]
+
 insertFirst(300): [300, 200, 100]
+
 insertLast(400): [300, 200, 100, 400]
+
 insertAt(500, 3): Insere no índice 3 (antes do 400).
 
 Resultado final no console (printListData):
@@ -856,32 +897,37 @@ Resultado final no console (printListData):
 500
 400
 
-##**Resumo para Documentação**
+## Resumo para Documentação
 
-Método	    Complexidade (Big O)	Descrição
-
-insertFirst	O(1)	Mais rápido, pois não percorre a lista.
-insertLast	O(n)	Precisa caminhar até o último nó.
-insertAt	O(n)	Percorre até o índice específico.
-removeAt	O(n)	Localiza e re-encadeia os ponteiros.
+Método | Complexidade (Big O) | Descrição
+--- | --- | ---
+insertFirst | O(1) | Mais rápido, pois não percorre a lista.
+insertLast | O(n) | Precisa caminhar até o último nó.
+insertAt | O(n) | Percorre até o índice específico.
+removeAt | O(n) | Localiza e re-encadeia os ponteiros.
 
 1. Execução Passo a Passo
 
 ll.insertFirst(50): A lista deixa de ser nula e cria o primeiro nó.
+
 Estado: [50] -> null
 
 ll.insertFirst(75): O 75 entra no início e aponta para o 50.
+
 Estado: [75] -> [50] -> null
 
 ll.insertLast(100): O código percorre a lista, acha o 50 e pendura o 100 depois dele.
+
 Estado: [75] -> [50] -> [100] -> null
 
-ll.getAt(0): O método percorre a lista e, ao encontrar o índice 0, executa o console.log(current.data).
+ll.getAt(0): O método percorre a lista e, ao encontrar o índice 0, executa o console.
+
+log(current.data).
 Saída no Console: 75
 
 ll.printListData(): Percorre e imprime todos.
 
-##**2. Diagrama da Nova Lista**
+## 2. Diagrama da Nova Lista
 
 Após esses comandos, sua estrutura de dados em 2025 estará assim:
 
@@ -893,18 +939,22 @@ Após esses comandos, sua estrutura de dados em 2025 estará assim:
     │ next: ───┼─────▶│ next: ───┼─────▶│ next:null│
     └──────────┘      └──────────┘      └──────────┘
 
-##**3. Resultado Final no Console**
+## 3. Resultado Final no Console
 
 Se você rodar exatamente essa sequência no seu VS Code agora, o terminal mostrará:
 
 75    <-- (Resultado do getAt(0))
+
 75    <-- (Início do printListData)
+
 50
+
 100
 
-## **Dicas Importantes:**
+## Dicas Importantes:
 
 Reuso de Memória: O JavaScript é muito eficiente nisso. Os nós antigos que foram limpos pelo 
+
 clearList já foram marcados para exclusão, e esses novos ocupam espaços novos de memória de forma limpa.
 
 Consistência do size: O seu método insertFirst e insertLast fazem this.size++, então o contador que estava 
@@ -913,8 +963,6 @@ em 0 (após o clear) terminará em 3.
 Para conferir o estado completo do objeto no VS Code, você pode usar o comando console.dir(ll, { depth: null });
 , que mostrará toda a árvore de nós expandida no terminal. Documentação do console.dir.
 
-
-## /////////////////////////////////////////////////////////////////////////////////////
 
 
 
