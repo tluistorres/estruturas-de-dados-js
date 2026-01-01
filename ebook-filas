@@ -1,4 +1,4 @@
-##** 1. O Conceito de Fila (FIFO)**
+## 1. O Conceito de Fila (FIFO)
 
 Imagine uma fila de banco: a primeira pessoa que chega é a primeira a ser atendida. Novos elementos entram pelo fim da fila e saem pelo início.
 Diagrama de Operações:
@@ -128,10 +128,7 @@ bash
 
  node testaFila.js
 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-Em uma implementação comum de fila (queue) em JavaScript usando um objeto para armazenamento, 
+## Em uma implementação comum de fila (queue) em JavaScript usando um objeto para armazenamento, 
 this.count e this.lowestCount têm finalidades distintas e trabalham em conjunto para gerenciar os elementos de forma eficiente: 
 
  - this.count: Rastreia o número total de elementos que foram adicionados à fila ao longo do tempo (o índice do próximo elemento a ser inserido, essencialmente o final da fila, ou "rear"). Ele é incrementado a cada operação de enqueue (adicionar).
@@ -168,9 +165,7 @@ Diferença Prática
 A principal diferença é que this.count continua a aumentar com cada adição, enquanto this.lowestCount aumenta com cada remoção do início. O número real de elementos na fila a qualquer momento é calculado pela diferença entre eles: this.count - this.lowestCount. 
 Essa abordagem, que usa um objeto (this.items) em vez de um array para armazenar os elementos e mantém esses dois ponteiros de índice, permite que as operações de enqueue e dequeue tenham uma complexidade de tempo constante O(1), o que é mais eficiente do que usar métodos de array como shift(), que podem ter complexidade O(n). 
 
-//////////////////////////////////////////////////////////////////////////////////////////
-
-Fila (Queue) em um cenário real: um Simulador de Fila de Impressão.
+## Fila (Queue) em um cenário real: um Simulador de Fila de Impressão.
 
 Neste exemplo, cada "item" da fila será um documento enviado para uma impressora. O primeiro documento enviado deve ser o primeiro a ser impresso.
 
@@ -255,9 +250,7 @@ console.log("Fila atualizada:", impressoraHP.toString());
 // Saída: [ Contrato_Aluguel.docx ]
 
 
-////////////////////////////////////////////////////////////////////////
-
-Explicação da Lógica Passo a Passo:
+## Explicação da Lógica Passo a Passo:
 
 this.count vs this.lowestCount: Em 2025, esta é a técnica padrão para filas eficientes. Em vez de mover todos os itens de lugar (o que seria lento), apenas movemos o ponteiro do início (lowestCount) para frente.
 delete: 
@@ -293,4 +286,3 @@ Para aprofundar em casos de uso de filas em servidores modernos, consulte a Docu
  dados são organizados na memória.
 
 The End
-///////////////////////////////////////////////////////////////////////////////////////////////
