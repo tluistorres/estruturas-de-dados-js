@@ -1,0 +1,10 @@
+# Executáveis (arquivos sem extensão ou específicos)
+analisador_*
+float*
+roteador_queue
+traceroute_list
+float
+
+# Dados e Logs
+*.txt
+*.csv

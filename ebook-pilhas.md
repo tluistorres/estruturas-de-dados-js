@@ -1,4 +1,4 @@
-##**1. O Conceito de Pilha (LIFO)**
+📚 1. O Conceito de Pilha (LIFO)
 
 Imagine uma pilha de pratos: você só consegue colocar um novo prato no topo e só consegue remover o prato que está no topo. Se quiser o prato do fundo, precisa remover todos os de cima primeiro.
 Diagrama de Operações:
@@ -82,7 +82,7 @@ class Stack {
 
 export default Stack;
 
-# 3. Teste Manual: indexStack.js
+🚀 3. Teste Manual: indexStack.js
 
 javascript
 
@@ -151,9 +151,7 @@ console.log("Pilha após pop:", pilha.toString());
 
  - node testaPilha.js
 
-///////////////////////////////////////////////////////////////////
-
-Projeto Prático: Simulador de Histórico de Editor de Texto
+📌 Projeto Prático: Simulador de Histórico de Editor de Texto
 
 Neste exemplo, cada vez que o usuário digita algo, "empilhamos" a ação. Quando ele aperta "Desfazer",
 "desempilhamos" a última alteração.
@@ -235,9 +233,8 @@ desfazer(); // Remove "Mundo"
 
 console.log("\nTexto Final:", textoAtual); // Deve sobrar apenas "Olá "
 
-////////////////////////////////////////////////////////////////////////////////////
 
-Por que este projeto é importante para o seu Ebook?
+📚 Por que este projeto é importante para o seu Ebook?
 
  - Contextualização: O leitor entende que a Pilha não é apenas um conceito abstrato, mas a 
  ferramenta que salva o trabalho dele todos os dias no VS Code.
