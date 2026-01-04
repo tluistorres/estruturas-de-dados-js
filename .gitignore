@@ -1,10 +1,18 @@
-# Executáveis (arquivos sem extensão ou específicos)
-analisador_*
-float*
+# Ignorar binários compilados (sem extensão)
+analisador_inteligente
+analisador_pro
+analisador_rotas
+analisador_rotas1
+float
+float-latencia
+history-chain-pro
 roteador_queue
 traceroute_list
-float
 
-# Dados e Logs
+# Ignorar arquivos de log e dados gerados
 *.txt
 *.csv
+
+# Ignorar dependências de Node.js
+node_modules/
+package-lock.json
