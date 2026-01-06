@@ -25,3 +25,44 @@ Medir o **Overhead do Sistema Operacional**, ou seja, o tempo que o kernel do Li
 1. **Impacto da Distância:** Conforme esperado, o RTT escala com a distância geográfica (Japão > EUA > Brasil).
 2. **Overhead de Processamento:** No teste local (PUC), observamos um overhead de **1.060 ms**. Isso representa o tempo de interrupção de hardware, processamento da pilha TCP/IP no Kernel e a troca de contexto para o espaço do usuário.
 3. **Precisão:** O `tcpdump` oferece uma visão mais fiel da latência real da fibra óptica, enquanto o `ping` inclui o "atraso de software".
+
+<h2 align="center">📊 Comparativo de Performance: Rede vs. Sistema</h2>
+
+<table align="center">
+  <thead>
+    <tr style="background-color: #333; color: white;">
+      <th>Destino</th>
+      <th>Distância</th>
+      <th>📡 Aplicação (Ping)</th>
+      <th>🔌 Kernel (Tcpdump)</th>
+      <th>💻 Overhead do SO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Yahoo Japão</b></td>
+      <td>Muito Alta 🌏</td>
+      <td>330.14 ms</td>
+      <td>330.67 ms</td>
+      <td style="color: #888;">&lt; 0.1 ms</td>
+    </tr>
+    <tr style="background-color: #f9f9f9;">
+      <td><b>Darknet</b></td>
+      <td>Média 🌎</td>
+      <td>175.35 ms</td>
+      <td>163.99 ms</td>
+      <td style="color: #d9534f; font-weight: bold;">11.36 ms</td>
+    </tr>
+    <tr>
+      <td><b>PUC (Brasil)</b></td>
+      <td>Baixa 🏠</td>
+      <td>21.88 ms</td>
+      <td>20.82 ms</td>
+      <td style="color: #5cb85c; font-weight: bold;">1.06 ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<p align="center">
+  <i>* Valores coletados via script <code>compara_rtt.sh</code> em ambiente de teste Linux.</i>
+</p>
