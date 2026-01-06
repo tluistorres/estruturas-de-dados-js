@@ -13,3 +13,5 @@ Este projeto utiliza **Listas Encadeadas** para mapear a jornada de um pacote de
 - Linguagem C
 - Bibliotecas: `stdio.h`, `stdlib.h`, `string.h`, `time.h`
 - Ambiente: Linux (Debian/Ubuntu)
+
+"O projeto inclui arquivos .pcap para análise forense de rede, permitindo verificar a latência de cada salto capturado diretamente na camada de enlace."
