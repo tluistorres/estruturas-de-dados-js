@@ -1,15 +1,20 @@
-# Variáveis de compilação
+# Variáveis
 CC = gcc
 CFLAGS = -Wall -g
+TARGET = analisador_final
 
-# Alvos (executáveis)
-all: analisador_universal analisador_estatistico
+all: $(TARGET)
 
-analisador_universal: analisador_universal.c
-	$(CC) $(CFLAGS) analisador_universal.c -o analisador_universal
+$(TARGET): analisador_final.c
+	$(CC) $(CFLAGS) analisador_final.c -o $(TARGET)
 
-analisador_estatistico: analisador_estatistico.c
-	$(CC) $(CFLAGS) analisador_estatistico.c -o analisador_estatistico
+# Esta é a regra que faltava!
+run: all
+	sudo ./$(TARGET)
 
 clean:
-	rm -f analisador_universal analisador_estatistico
+	rm -f $(TARGET) analisador_universal analisador_estatistico historico_rotas.txt
+
+iwatch-reload:
+	sudo systemctl restart iwatch
+	sudo systemctl status iwatch

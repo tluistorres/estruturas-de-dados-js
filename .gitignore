@@ -16,3 +16,11 @@ traceroute_list
 # Ignorar dependências de Node.js
 node_modules/
 package-lock.json
+
+analisador_final
+analisador_universal
+analisador_estatistico
+historico_rotas.txt
+*.pcap
+*.dump
+node_modules/
