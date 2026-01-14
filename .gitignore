@@ -24,3 +24,6 @@ historico_rotas.txt
 *.pcap
 *.dump
 node_modules/
+analisador
+analisador_hibrido
+analisador_trafego
