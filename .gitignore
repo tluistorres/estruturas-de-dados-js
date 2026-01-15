@@ -27,3 +27,4 @@ node_modules/
 analisador
 analisador_hibrido
 analisador_trafego
+*.iso

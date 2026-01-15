@@ -144,3 +144,4 @@ class DoublyLinkedList {
 
 // ESSENCIAL: Exportação padrão para o ES Modules (index.js e Jest)
 export default DoublyLinkedList;
+
