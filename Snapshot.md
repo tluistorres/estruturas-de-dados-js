@@ -34,4 +34,10 @@ Markdown
 > 
 > **Métricas Alcançadas:**
 > - **Throughput:** Suporte verificado de até **12.165 pps**.
-> - **Segurança:** Monitoramento de integridade de arquivos em tempo real via integração **iWatch**.
+> - **Segurança:** Monitoramento de integridade de arquivos em tempo real via integração **iWatch*## 🛠️ Como Compilar e Executar
+
+O projeto conta com um sistema de build automatizado:
+
+1. **Dar permissão ao script:**
+   ```bash
+   chmod +x build.sh

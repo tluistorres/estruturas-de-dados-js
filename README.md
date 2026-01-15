@@ -1,49 +1,72 @@
-# Network Analysis & Performance Suite
+## 🛡️ IDS Project - Torres Development
 
-Este repositório contém ferramentas em C desenvolvidas para análise de infraestrutura de rede e monitoramento de protocolos, unindo conceitos de **Estruturas de Dados** com administração de sistemas Linux.
+Status: v4.0 (Performance & Integrity)
 
----
+Ambiente de Testes:
 
-## 🛰️ 1. Analisador de Rotas Geográficas
+Hardware: Lenovo IdeaPad Gaming 3
+
+OS: Ubuntu 24.04 (Dual Boot Kali Linux Ready)
+
+Métricas Alcançadas:
+
+Throughput: Suporte verificado de até 12.165 pps.
+
+Segurança: Monitoramento de integridade em tempo real via iWatch.
+
+### 🛰️ 1. Analisador de Rotas Geográficas
+
 Focado em mapear a jornada física de pacotes e identificar pontos críticos de troca de tráfego (IXP).
 
-- **Estrutura de Dados:** Lista Encadeada Simples.
-- **Diferencial:** Identificação heurística de CDN (Cloudflare, Akamai) e infraestruturas brasileiras (IX.br).
-- **Métricas:** Latência salto a salto e persistência em CSV/Log.
+Estrutura de Dados: Lista Encadeada Simples.
 
----
+Diferencial: Identificação de infraestruturas brasileiras (IX.br) e CDNs (Cloudflare, Akamai).
 
-## 🛡️ 2. OSPF Performance & Integrity Monitor (v4.0)
-Analisador de tráfego de nível industrial focado no protocolo **OSPF (proto 89)**, com monitoramento de integridade do sistema.
+Métricas: Latência salto a salto com exportação para CSV/Log.
 
-- **Estrutura de Dados:** Buffer Circular em RAM (Lista Encadeada Dupla) inspirado no **Quagga/OSPF-MDR**.
-- **Segurança Ativa:** Integração com `iWatch` (inotify) para detectar alterações em `/etc` ou `/bin` durante a captura de rede.
-- **Análise Forense:** Suporte a arquivos `.pcap` para inspeção de pacotes.
+### 🛡️ 2. OSPF Performance & Integrity Monitor
 
-### 🚀 Como rodar
-1. **Pré-requisitos:**
-   ```bash
-   sudo apt install tcpdump hping3 iwatch
+Analisador focado no protocolo OSPF (proto 89), com monitoramento ativo de integridade do sistema.
 
+Estrutura de Dados: Buffer Circular em RAM (Lista Encadeada Dupla) inspirado no Quagga.
 
-### Compilação e Execução:
+Segurança Ativa: Integração com iWatch (inotify) para detectar alterações em /etc ou /bin.
+
+### 🛠️ Como Compilar e Executar
+
+O projeto utiliza um sistema de build automatizado para garantir a integridade das dependências e cabeçalhos (estruturas.h).
+
+Instalar Dependências:
 
 Bash
 
-make
-sudo make run
+sudo apt install tcpdump hping3 iwatch
 
-### 📊 Relatório Final
+Compilar todos os módulos:
 
-Ao encerrar com Ctrl+C, o sistema gera automaticamente:
+Bash
 
-Taxa de pacotes por segundo (PPS).
+chmod +x build.sh
 
-Log de eventos de integridade capturados pelo iWatch no syslog.
+./build.sh
 
-Dump das rotas processadas em RAM.
+Execução com Geração de Snapshot (Log Forense):
 
-### 🛠️ Tecnologias
+Bash
+
+sudo ./analisador_final.out | tee snapshot_auditoria_$(date +%Y%m%d_%H%M).log
+
+### 📸 Snapshot & Auditoria
+
+O uso do comando tee com $(date) permite:
+
+Histórico: Comparação de performance entre diferentes versões do código.
+
+Evidência Forense: Logs datados que provam a detecção de ataques ou anomalias.
+
+Validação: Prova técnica de suporte à carga de 12k pps.
+
+### 📊 Tecnologias
 
 Linguagem: C (GCC)
 
@@ -51,4 +74,4 @@ Segurança: iWatch (File Integrity Monitoring)
 
 Protocolos: OSPF, ICMP
 
-Automação: Makefile
+Automação: Shell Script (Build System)
