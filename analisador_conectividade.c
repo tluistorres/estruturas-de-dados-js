@@ -2,14 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "estruturas.h"
 
-// Estrutura para controle de fluxo e estatísticas
-typedef struct {
-    int req_enviados;
-    int rep_recebidos;
-    int pacotes_perdidos;
-    float percentual_perda;
-} MonitorRede;
+/* Nota: As definições de MonitorRede e Node agora devem estar 
+   APENAS no arquivo estruturas.h para evitar erros de redefinição.
+*/
 
 // Inicializa o monitor global
 MonitorRede monitor = {0, 0, 0, 0.0};
@@ -17,27 +14,24 @@ MonitorRede monitor = {0, 0, 0, 0.0};
 void processar_estatisticas(char *linha) {
     int atualizou = 0;
 
-    // Detecta saída (Request)
     if (strstr(linha, "ICMP echo request")) {
-        monitor.req_enviados++;
+        monitor.enviados++; // Usando nomes de membros compatíveis com estruturas.h
         atualizou = 1;
     } 
-    // Detecta entrada (Reply)
     else if (strstr(linha, "ICMP echo reply")) {
-        monitor.rep_recebidos++;
+        monitor.recebidos++;
         atualizou = 1;
     }
 
     if (atualizou) {
-        monitor.pacotes_perdidos = monitor.req_enviados - monitor.rep_recebidos;
+        monitor.perdidos = monitor.enviados - monitor.recebidos;
         
-        if (monitor.req_enviados > 0) {
-            monitor.percentual_perda = ((float)monitor.pacotes_perdidos / monitor.req_enviados) * 100;
+        if (monitor.enviados > 0) {
+            monitor.taxa_perda = ((float)monitor.perdidos / monitor.enviados) * 100;
         }
 
-        // Exibe o painel em tempo real na mesma linha (\r)
         printf("\r[MONITOR] Enviados: %d | Recebidos: %d | Perdidos: %d | Status: %.1f%% de Perda", 
-               monitor.req_enviados, monitor.rep_recebidos, monitor.pacotes_perdidos, monitor.percentual_perda);
+               monitor.enviados, monitor.recebidos, monitor.perdidos, monitor.taxa_perda);
         fflush(stdout);
     }
 }
@@ -46,13 +40,12 @@ void iniciar_monitoramento(char *alvo) {
     char comando[512];
     char linha[1024];
 
-    // O filtro exclui porta 53 (DNS) e foca no alvo escolhido
     snprintf(comando, sizeof(comando), 
-             "sudo stdbuf -oL tcpdump -ln -i any host %s and icmp and port ! 53 2>/dev/null", alvo);
+             "sudo stdbuf -oL tcpdump -ln -i any host %s and icmp 2>/dev/null", alvo);
 
     printf("\n=====================================================");
-    printf("\n🔍 ANALISADOR DE PERDA DE DADOS: %s", alvo);
-    printf("\n[DICA] Use CTRL+C para parar e ver o resumo final.");
+    printf("\n🔍 ANALISADOR DE CONECTIVIDADE v4.0: %s", alvo);
+    printf("\n[DICA] Use CTRL+C para parar.");
     printf("\n=====================================================\n\n");
 
     FILE *pipe = popen(comando, "r");
@@ -68,32 +61,31 @@ void iniciar_monitoramento(char *alvo) {
     pclose(pipe);
 }
 
-int main() {
-    char ip_alvo[256];
-    
-    system("clear");
-    printf("Digite o IP ou Domínio para teste de estresse: ");
-    if (scanf("%255s", ip_alvo) != 1) return 1;
-
-    iniciar_monitoramento(ip_alvo);
-
-    return 0;
-}
-
+// Corrigido: usando 'next' conforme definido na struct Node
 void limpar_memoria_final(Node *head) {
     Node *atual = head;
     int removidos = 0;
     
     while (atual != NULL) {
-        Node *proximo = atual->proximo;
+        Node *proximo = atual->next; // Corrigido de 'proximo' para 'next'
         free(atual);
         atual = proximo;
         removidos++;
     }
     
     if (removidos > 0) {
-        printf("\n[MEMÓRIA] %d pacotes pendentes foram liberados com sucesso.\n", removidos);
-    } else {
-        printf("\n[MEMÓRIA] Lista limpa. Nenhum vazamento detectado.\n");
+        printf("\n[MEMÓRIA] %d pacotes liberados.\n", removidos);
     }
+}
+
+int main() {
+    char ip_alvo[256];
+    
+    system("clear");
+    printf("Digite o IP ou Domínio para teste (ex: 8.8.8.8): ");
+    if (scanf("%255s", ip_alvo) != 1) return 1;
+
+    iniciar_monitoramento(ip_alvo);
+
+    return 0;
 }

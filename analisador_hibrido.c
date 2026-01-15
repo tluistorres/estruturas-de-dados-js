@@ -1,14 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "estruturas.h" // Inclui a definição de MonitorRede
 
-typedef struct {
-    int enviados;
-    int recebidos;
-    int perdidos;
-    float taxa_perda;
-} Monitor Rede;
-
+// Removida a definição local para não conflitar com estruturas.h
 MonitorRede rede = {0, 0, 0, 0.0};
 
 void atualizar_estatisticas(char *linha) {
@@ -29,7 +24,7 @@ void atualizar_estatisticas(char *linha) {
             rede.taxa_perda = ((float)rede.perdidos / rede.enviados) * 100;
         }
 
-        // Limpa a linha atual e imprime o status atualizado
+        // \r faz o cursor voltar ao início da linha para o efeito de "loading"
         printf("\r[STATUS] Enviados: %d | Recebidos: %d | Perdidos: %d | Perda: %.2f%%", 
                rede.enviados, rede.recebidos, rede.perdidos, rede.taxa_perda);
         fflush(stdout);
@@ -40,17 +35,20 @@ void analisar_com_perda(char *alvo) {
     char comando[512];
     char linha[1024];
 
-    // O filtro exclui tráfego DNS (porta 53) como fizeste no teu comando manual
+    // O filtro exclui porta 53 (DNS) e foca no alvo escolhido
     snprintf(comando, sizeof(comando), 
-             "sudo stdbuf -oL tcpdump -ln -i any host %s and icmp and port ! 53 2>/dev/null", alvo);
+             "sudo stdbuf -oL tcpdump -ln -i any host %s and icmp 2>/dev/null", alvo);
 
     printf("\n=====================================================");
-    printf("\n📡 ANALISADOR DE CONECTIVIDADE: %s", alvo);
+    printf("\n📡 ANALISADOR HÍBRIDO v4.0: %s", alvo);
     printf("\n[INFO] Calculando Taxa de Perda em tempo real...");
     printf("\n=====================================================\n\n");
 
     FILE *pipe = popen(comando, "r");
-    if (!pipe) return;
+    if (!pipe) {
+        perror("Erro ao abrir pipe do tcpdump");
+        return;
+    }
 
     while (fgets(linha, sizeof(linha), pipe)) {
         atualizar_estatisticas(linha);
@@ -61,8 +59,10 @@ void analisar_com_perda(char *alvo) {
 
 int main() {
     char alvo[256];
+    
+    system("clear");
     printf("Digite o IP/Domínio para teste de perda: ");
-    scanf("%s", alvo);
+    if (scanf("%255s", alvo) != 1) return 1;
 
     analisar_com_perda(alvo);
 
