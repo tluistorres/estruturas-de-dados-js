@@ -28,3 +28,10 @@ analisador
 analisador_hibrido
 analisador_trafego
 *.iso
+
+node_modules/
+*.log
+ospf-mdr/autom4te.cache/
+.DS_Store
+dist/
+build/

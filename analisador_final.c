@@ -11,6 +11,8 @@
 #define YEL   "\x1B[33m"
 #define CYN   "\x1B[36m"
 #define RESET "\x1B[0m"
+#include <time.h>
+
 
 // Estrutura de Dados
 struct listnode {
@@ -42,10 +44,20 @@ void tratar_sigint(int sig) {
     printf("\n\n%s[INTEGRIDADE]%s Verificando alertas do iWatch no syslog...", YEL, RESET);
     printf("\n%s--------------------------------------------------------%s\n", YEL, RESET);
     // Busca alertas do iwatch no log do sistema
-    system("sudo tail -n 20 /var/log/syslog | grep iwatch | tail -n 5");
+    printf("\n[INTEGRIDADE] Verificando alertas do iWatch (Últimos 2 min)...\n");
+    printf("--------------------------------------------------------\n");
+    // Usamos journalctl para acessar os logs reais do serviço iwatch
+    system("sudo journalctl -u iwatch --since '5 minutes ago' --no-pager | grep -iE 'IN_CREATE|IN_MODIFY|success' | tail -n 10");
+    printf("--------------------------------------------------------\n");
+
     
     printf("\n%sSessão encerrada com segurança.%s\n", GRN, RESET);
     exit(0);
+    
+    // Dentro da função de relatório:
+    time_t agora = time(NULL);
+    printf("Data/Hora do Incidente: %s", ctime(&agora));
+
 }
 
 // ... (Mantenha as funções list_new e listnode_add que já usamos) ...

@@ -18,3 +18,8 @@ clean:
 iwatch-reload:
 	sudo systemctl restart iwatch
 	sudo systemctl status iwatch
+
+test:
+	@echo "Iniciando monitor e simulando eventos..."
+	# Roda o analisador em background, espera 5s e mata com SIGINT
+	sudo ./analisador_final & sleep 5 && sudo touch /etc/audit_test.txt && sudo pkill -INT analisador_final
