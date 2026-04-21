@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    background: #000; /* Fundo preto para contraste */
+    overflow: hidden; /* Evita barras de rolagem */
+}
+
+#fireworksCanvas {
+    display: block;
+}
+
+/* Estilo da caixa de mensagem inicial */
+#welcome-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #444;
+    z-index: 10; /* Garante que fique acima do canvas */
+    transition: opacity 0.5s;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Fireworks Special</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; }
+        #fireworksCanvas { display: block; }
+        #ui {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff4d6d; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center; cursor: pointer;
+            background: rgba(20, 0, 5, 0.8);
+            padding: 40px; border-radius: 20px;
+            border: 2px solid #ff4d6d; z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h1>💖 Edição Especial 💖</h1>
+        <p>Clique para iniciar os fogos de coração</p>
+    </div>
+    <canvas id="fireworksCanvas"></canvas>
+    <script src="script_v2.js"></script>
+</body>
+</html>

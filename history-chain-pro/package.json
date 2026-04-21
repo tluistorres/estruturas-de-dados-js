@@ -1,6 +1,0 @@
-{
-  "name": "estruturas-de-dados",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "linked-list.js"
-}

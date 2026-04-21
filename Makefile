@@ -1,25 +1,39 @@
-# Variáveis
+# --- Configurações de Compilador ---
 CC = gcc
-CFLAGS = -Wall -g
-TARGET = analisador_final
+CFLAGS = -Wall -Wextra -g
+LDFLAGS = -lpcap # Necessário para seus analisadores de rede
 
-all: $(TARGET)
+# --- Diretórios ---
+SRC_DIR = analisadores_rede
+BIN_DIR = binarios_c
+PROJ_DIR = projetos
 
-$(TARGET): analisador_final.c
-	$(CC) $(CFLAGS) analisador_final.c -o $(TARGET)
+# --- Alvos ---
+# Busca todos os .c em analisadores_rede
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+# Gera nomes de executáveis para a pasta binarios_c
+BINS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%, $(SRCS))
 
-# Esta é a regra que faltava!
-run: all
-	sudo ./$(TARGET)
+all: $(BIN_DIR) $(BINS)
 
+# Cria a pasta de binários se não existir
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
+# Regra de compilação: transforma analisadores_rede/arquivo.c em binarios_c/arquivo
+$(BIN_DIR)/%: $(SRC_DIR)/%.c
+	@echo "🛠️ Compilando: $<"
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
+	@echo "✅ Gerado: $@"
+
+pilha: pilha.c $(CC) $(CFLAGS) -o $@ $^
+
+# Limpeza
 clean:
-	rm -f $(TARGET) analisador_universal analisador_estatistico historico_rotas.txt
+	rm -rf $(BIN_DIR)/*
+	@echo "🧹 Pasta de binários limpa."
 
-iwatch-reload:
-	sudo systemctl restart iwatch
-	sudo systemctl status iwatch
-
-test:
-	@echo "Iniciando monitor e simulando eventos..."
-	# Roda o analisador em background, espera 5s e mata com SIGINT
-	sudo ./analisador_final & sleep 5 && sudo touch /etc/audit_test.txt && sudo pkill -INT analisador_final
+# Atalho para backup
+backup:
+	@echo "Fazendo backup de toda a pasta estruturas_de_dados..."
+	cd .. && ./backup_projeto.sh

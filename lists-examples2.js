@@ -1,94 +1,108 @@
 class Node {
-    constructor(value) {
-        this.value = value;
-        this.next = null; 
+    constructor(element) {
+        this.element = element;
+        this.next = null;
     }
 }
 
-class List {
+class LinkedList {
     constructor() {
-        this.head = null; 
+        this.count = 0;
+        this.head = null;
     }
 
-    // O método deve estar DENTRO da classe e sem o ";" após o nome
-    append(value) {
-        const newNode = new Node(value);
-        if (this.head === null) {
-            this.head = newNode;
-        } else {
-            let current = this.head;
-            while (current.next !== null) { 
-                current = current.next;
+    // Insere em uma posição específica (usando laço for)
+    insert(element, index) {
+        if (index >= 0 && index <= this.count) {
+            const node = new Node(element);
+            if (index === 0) { // Início da lista
+                node.next = this.head;
+                this.head = node;
+            } else {
+                let previous = this.head;
+                // Laço for para atingir a posição desejada
+                for (let i = 0; i < index - 1; i++) {
+                    previous = previous.next;
+                }
+                node.next = previous.next;
+                previous.next = node;
             }
-            current.next = newNode; // Faltava conectar o novo nó ao final
-        }
-    }
-
-    get(position) {
-        if (position > -1) {
-            let current = this.head;
-            let i = 0;
-            while (current !== null && i < position) {
-                current = current.next;
-                i++;
-            }
-            return current !== null ? current.value : undefined;
-        } else {
-            return undefined;
-        }
-    }
-
-    delete(position) { // Corrigido: delet -> delete
-        if (this.head === null || position < 0) {
-            throw new RangeError(`Sem item na posição ${position}`);
-        }
-
-        if (position === 0) {
-            this.head = this.head.next;
+            this.count++;
             return true;
         }
-
-        let current = this.head;
-        let previous = null;
-        let i = 0;
-
-        while (current !== null && i < position) {
-            previous = current; // Salva o anterior para "pular" o atual depois
-            current = current.next;
-            i++;
-        }
-
-        if (current !== null) {
-            previous.next = current.next; // Remove o nó atual da corrente
-            return true;
-        }
-        
-        throw new RangeError(`Sem item na posição ${position}`);
+        return false;
     }
 
-    values() {
+    // Remove de uma posição específica
+    removeAt(index) {
+        if (index >= 0 && index < this.count) {
+            let current = this.head;
+            if (index === 0) {
+                this.head = current.next;
+            } else {
+                let previous = this.head;
+                for (let i = 0; i < index - 1; i++) {
+                    previous = previous.next;
+                }
+                current = previous.next;
+                previous.next = current.next;
+            }
+            this.count--;
+            return current.element;
+        }
+        return undefined;
+    }
+
+    // Retorna o índice de um elemento
+    indexOf(element) {
         let current = this.head;
-        let values = [];
-        while (current !== null) {
-            values.push(current.value); // Corrigido: era createSecureContext
+        for (let i = 0; i < this.count && current != null; i++) {
+            if (element === current.element) {
+                return i;
+            }
             current = current.next;
         }
-        return values;
+        return -1;
+    }
+
+    size() {
+        return this.count;
+    }
+
+    isEmpty() {
+        return this.size() === 0;
+    }
+
+    getHead() {
+        return this.head;
+    }
+
+    toString() {
+        if (this.head == null) return '';
+        let objString = `${this.head.element}`;
+        let current = this.head.next;
+        for (let i = 1; i < this.size() && current != null; i++) {
+            objString = `${objString}, ${current.element}`;
+            current = current.next;
+        }
+        return objString;
     }
 }
 
-// Demonstração de uso:
-const list = new List();
-list.append(1);
-list.append(2);
-list.append(3);
+export default LinkedList;
 
-console.log("Valores iniciais:", list.values()); // [1, 2, 3]
-list.delete(1); // Remove o '2'
-list.append(4);
 
-console.log("Após deletar pos(1) e adicionar 4:", list.values()); // [1, 3, 4]
-console.log("Valor na posição 2:", list.get(2)); // 4
+const lista = new LinkedList();
 
-export default List;
+console.log("Está vazia?", lista.isEmpty()); // true
 
+lista.insert("A", 0); // [A]
+lista.insert("C", 1); // [A, C]
+lista.insert("B", 1); // [A, B, C] - Inseriu na posição 1 usando o laço for
+
+console.log("Lista atual:", lista.toString()); // "A, B, C"
+console.log("Tamanho:", lista.size());         // 3
+console.log("Posição do elemento 'B':", lista.indexOf("B")); // 1
+
+lista.removeAt(2); // Remove o "C"
+console.log("Após remover posição 2:", lista.toString()); // "A, B"

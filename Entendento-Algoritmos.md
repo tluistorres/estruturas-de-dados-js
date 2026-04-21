@@ -1,0 +1,133 @@
+# Capítulo 1
+
+## Introdução a algoritmos
+
+* **Pesquisa binária**
+
+Vamos supor que vocẽ esteja procurando o nome de uma pessoa em uma agenda telefônica. O nome começa com K. Você pode começar na primeira página da agenda e ir folheando até chegar aos KS. Ṕorém você provavelmente vai começar pela metade, pois sabe que os Ks estarão mais perto dali.
+
+Ou suponha que esteja procurando uma palavra que começa com O em um dicionário. Novamente, começará a busca pelo meio.
+
+Isto é um problema de busca. E todos estes casos usam um algoritmo para resolvê-lo: pesquisa binária.
+
+A pesquisa binária é um algoritmo. Sua entrada é umalista ordenada de elementos. S e o elemento que estamos buscando está na lista, a pesquisa binária retorna a sua localização. Caso contrário, a pesquisa binária retorna None.
+
+* **Pesquisa Simples**
+A cada tentativa, estaremos eliminando apenas um número.
+
+Seja uma lista = [ 1, 2, 3, ... , 100 ]
+
+* **Pesquisa Binária**
+Seja qual for o número que estivermos pensando, poderá adivinhar, em no máximo de sete tentativas - porque a pesquisa binária elimina muito possibilidades .
+
+Seja uma lista = [ 1, 2, 3, ... , 100 ]
+
+Seja num dicionário com 240.000 palávras - pesquisando ocorrerá 18 Etapas.
+
+* Pesquisa binária precisa-se de log n na base 2 para retornar o valor correto.
+* Pesquisa simples linear precisa de n etapas. Pesqusa binária só funciona quando a lista estiver ordenada.
+* Podemos armazenar uma sequência de elementos em uma linha de buckets conseccutivos que se chama array. Os buckets são numerados a partir do 0: o primeiro bucket está na posição #0; o segundo em #1; o terceiro em #2, e assim por diante.
+* A função pesquisa_binaria pega um array ordenado e um item. Se o item está no array, a função retorna a sua posição.
+
+baixo = 0
+alto = len(lista) - 1
+
+// A cada tentativa, testamos o elemento central
+
+meio = (baixo + alto) // 2
+chute lista[meio]
+
+// meio será arredondadopara baixo automaicamente pelo Python se (baixo + alto) não for um número par.
+// Se o chute for muito baixo, atualizaremos a variável baixo proporcionalmente.
+
+if chute < item:
+ baixo = meio + 1
+
+minha_lista = [1, 3, 5, 7, 9]
+
+print pesquisa_binaria(minha_lista, 3)
+print pesquisa_binaria(minha_lista, -1)
+
+// E se o chute for muito alto, você atualizará a variável alto.
+
+## Código completo:
+
+# Função de pesquisa binária
+
+    def pesquisa_binaria(lista, item):
+     
+        baixo = 0
+        alto = len(lista) - 1
+
+        while baixo <= alto:  # enquanto não reduziu a lista para um elemento
+            meio = (baixo + alto) // 2  # índice do meio
+            chute = lista[meio]
+
+            if chute == item:  # achou!
+                return meio
+            if chute > item:  # chute foi alto demais
+                alto = meio - 1
+            else:  # chute foi baixo demais
+                baixo = meio + 1
+
+        return None  # item não existe na lista
+
+    # Testes
+
+    minha_lista = [1, 3, 5, 7, 9]
+    print(pesquisa_binaria(minha_lista, 3))  # deve retornar 1
+    print(pesquisa_binaria(minha_lista, -1))  # deve retornar None
+
+* **Tempo de execução**
+Notação Big O é uma notação especial que diz o qão rápido é um algoritmo.
+
+# Capítulo 2
+
+## Ordenação por seleção
+
+* **Como fucinoa a memóra**
+O computador se parece com um grande conjuntos de gavetas, e cada gaveta tem seu endereço. Cada vez que quer armazenar um item na memória, você pede ao computador um pouco de espaço e ele dá um endereço no qual se pode armazernar o item. Existem duas maneira para se fazer isso: arrays e listas encadeadas.
+
+* **Arrays** 
+Usar uma array significa que todas as tarefas estão armazenadas contiguamente (uma ao ladoda outra) na memória.
+
+Os Websites que apresentam listas "top 10" usam uma tática trapaceira para conseguir mais visualizações. Em vez de mostrarem a lista em um a única página, eles colocam um item em cada página e fazem a pessoa clicar em "próximo"  para ler o item seguinte. Por exemplo " Os 10 melhores vilões da TV". Seria muito melhor se a lista estivesse em uma única página e você pudesse clicar no nome de cada vilão para saber mais.
+
+Listas encadeadas tem um problema, os elementos não estão próximos uns dos outros, então não podemos calcular instantaneamente a posição de um elemento na memória - precisa ir ao primeiro elemento para encontrar o endereçp  do segundo elemento, então ir ao segundo elemento para encontrar o endereço do terceiro elemento, até chegar ao elemento que deseje.
+
+               ARRAY DE CINCO ELEMENTOS
+
+               |    |    |    |    |    | ---> 04 é o quinto elemento
+                 00   01   02   03   04
+
+Então arrays são ótimos quando você deseja ler elememtos aleatórios, pois pode encontrar qualquer elemento instantaneamente em um array.
+
+* **Temo de execução para operaçãocomuns de arrays e listas.**
+
+                | Arrays | Listas
+      Leitura   | O(1)   | O(n)
+      Inserção  | O(n)   | O(1)
+      Eliminação| O(n)   | O(Q)
+
+## Inserido algo no meio da lista
+Imagine que você queira que sua lista de tarefas se pareça mais com um calendário. Antes você adicionava os itens ao final da  lista. Agora , quer adiconar suas starefas  na ordem em que elas devam se realizar. O que seria melhor para inserir elementos no meio de uma lista: array ou lista encadeadas? Usando listas encadeadas , basta mudar o endereço para o qual o elemento antes está apontando.
+
+Já para arrays, você deve mover todos os itens que estão abaixo do endereço de inserção. Se não houver espaço, pode ser necessário mover tudo, para um novo local! Por isso, listas encadeadas são melhores caso queira inserir um elemento no meio de uma lista.
+
+* **Listas Encadeadas**
+Com listas encadeadas, seus itens podem estar em qualquer lugar da memória. Cada item armazena o endereço do próximomitem da lista. Um monte de endereços aleatórios da memória estão ligados.
+
+Com as listas encadeadas nunca precisa-se mover os itens como no array: coloca-se o item em qualquer lugar da memória e armazena o endereço do item anterior.
+
+Ex.: Imagine que está tentando encontrar 10.000 slots para um array. A memória tem 10.000 slots, mas eles não estão juntos. Vocẽ não consegue arrumar um lugar para o seu array! Usar listas encadeadas seria possível se existir espaço na memória, você terá espaço para a sua lista encadeada.
+
+## Deleções
+E se quiser deletar um elemento? Novamente, é mais fácil fazer isso usando listas encadeadas, pois é necessaŕio mudar apenas o endereço para o qual o elemento anterior está apontando. Com aarays, tudo precisa ser movido quando um elemento é eliminado.
+
+Ao contrário do que ocorre com as inserções, a eliminação de elementos sempre funcionará. A inserção poderá falhar quando não houver espaço suficiente na memória.
+
+*É uma prática comum acompanhar o primeiro e o último item de uma lista encadeada para que o tempo de execução para deletá-lo seja  O(1).*
+
+O que é mais usado arrays ou listas? Depende do caso em que se aplica. Entretanto os arrays são mais comuns porque permitem acesso aleatório. Existem dois tipos de acessos: o aleatório e o sequencial.  O sequencial significa ler os elementos, um por um, começando pelo primeiro. Listas encadeadas só podem lidar com acesso sequencial. Se você quiser ler o décimo elemento de uma lista encadeada, primeiro precisará ler os nove  elementos anteriores para chegar ao endereço do décimo elemento. O aleatório permite que você pule direto para o décimo elemento. Muitos casos requerem o acesso aleatório, o que faz os arrays serem mais utilizados. Os arrays e listas são usados para implementar outras estruturas de dados.
+
+## Ordenação por seleção
