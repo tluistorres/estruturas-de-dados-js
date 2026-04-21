@@ -29,6 +29,8 @@ Seja num dicionário com 240.000 palávras - pesquisando ocorrerá 18 Etapas.
 * Podemos armazenar uma sequência de elementos em uma linha de buckets conseccutivos que se chama array. Os buckets são numerados a partir do 0: o primeiro bucket está na posição #0; o segundo em #1; o terceiro em #2, e assim por diante.
 * A função pesquisa_binaria pega um array ordenado e um item. Se o item está no array, a função retorna a sua posição.
 
+```python
+
 baixo = 0
 alto = len(lista) - 1
 
@@ -48,12 +50,15 @@ minha_lista = [1, 3, 5, 7, 9]
 print pesquisa_binaria(minha_lista, 3)
 print pesquisa_binaria(minha_lista, -1)
 
+```
+
 // E se o chute for muito alto, você atualizará a variável alto.
 
 ## Código completo:
 
 # Função de pesquisa binária
 
+```python
     def pesquisa_binaria(lista, item):
      
         baixo = 0
@@ -78,8 +83,96 @@ print pesquisa_binaria(minha_lista, -1)
     print(pesquisa_binaria(minha_lista, 3))  # deve retornar 1
     print(pesquisa_binaria(minha_lista, -1))  # deve retornar None
 
+```
+
 * **Tempo de execução**
-Notação Big O é uma notação especial que diz o qão rápido é um algoritmo.
+* Notação Big O é uma notação especial que diz o qão rápido é um algoritmo.
+* Tempo de execução crescem com velocidades  diferentes.
+* Se a lista tem 1 bilhão de itens, o tempo de execução é a aproximadamente 33 milhões de vezes mais rápido.
+* A notação Big O informa o quão rápido é um algoritmo, permitindo que se compare o número de operações.
+* Tempo de execução O(n) e tempo de execução O(log n).
+* Para verificar uma pesquisa com 100 elementos: vamos presumir que leva-se 1 milissegundo para verificar um elemento. Com a pesquisa simples, a busca leva 100 ms para rodar. Em contrapartida, precisa-se verificar apenas  sete elementos na pesquisa binária, logo a pesquisa binária leva 7 ms para ser executada.
+* A pesquisa binária com 1 bilhão de elementos leva 30 ms ( log 1.000.000.000, na base 2 é igual 30).
+
+      +-------------------------+------------------+------------------+
+      |                         | PESQUISA SIMPLES | PESQUISA BINÁRIA |
+      +-------------------------+------------------+------------------+
+      | 100 ELEMENTOS           | 100ms            | 7ms              |
+      | 10.000 ELEMENTOS        | 10 Ssegunos      | 14 ms            |
+      | 1.000.000.000 ELEMENTOS | 11 dias          | 32ms             |
+      +-------------------------+------------------+------------------+
+
+* Sendo assim, conforme o número de itens cresce, a pesquisa binária aumenta só um pouco o seu tenpo de execução. Já a pesquisa simples leva muito tempo a mais. Logo conforme a lista de números cresce, a pesquisa binária se torna muito mais rápida do que a pesquisa simples.
+
+* Por isso, não basta saber quanto tempo um algoritmo leva para ser executado - precisamos saber se o tempo de execução aumenta conforme a lista aumenta. É aí que a a notação Big O atua.
+
+* A notação Big O estabelece o tempo de execução para a pior hipótese.
+
+## Alguns exemplos comuns de tempo de execuçãonBig O
+Aqui temos cinco tempos de execução Big O uue encontraremos bastante, ordenados do mais rápido para o mais lento.
+
+ * O(log n), também conhecido como tempo logarítmico. Exemplo: pesquisa binária.
+
+ * O(n), conhecido como tempo linear. Exemplo: pesquisa simples.
+
+ * O(n * log n). Exemplo: um algoritmo rápido de ordenação, como o quicksort.
+
+ * O(n^2). Exemplo: um algoritmo lento de ordenação, como a ordenação por seleção.
+
+ * O(n!). Exemplo: um algoritmo bastante lento, como o do caixeiro viajante.
+
+# Exemplo Clássico de O(n!): Caixeiro Viajante (TSP)
+
+## Problema
+Dado um conjunto de cidades e as distâncias entre elas, achar o caminho mais curto que visita cada cidade uma vez e volta ao início.
+
+## Algoritmo Força Bruta (Permutação)
+
+1. Gera todas as permutações possíveis das cidades
+2. Para cada permutação, calcula a distância total
+3. Retorna a permutação com menor distância
+
+## Por que O(n!)?
+* Para `n` cidades, tem `n!` permutações possíveis
+* Para cada permutação, calcula a distância (`O(n)`)
+* Total: `O(n! × n)` → simplifica para `O(n!)` porque `n!` domina
+
+## Exemplo em Python
+
+```python
+
+import itertools
+
+def distancia(cidades, rota):
+    total = 0
+    for i in range(len(rota)-1):
+        total += cidades[rota[i]][rota[i+1]]
+    total += cidades[rota[-1]][rota[0]]  # volta pro início
+    return total
+
+def caixeiro_viajante(cidades):
+    melhor_rota = None
+    menor_dist = float('inf')
+
+    for rota in itertools.permutations(range(len(cidades))):
+        dist = distancia(cidades, rota)
+        if dist < menor_dist:
+            menor_dist = dist
+            melhor_rota = rota
+
+    return melhor_rota, menor_dist
+
+
+# Exemplo com 3 cidades
+cidades = [
+    [0, 10, 15],
+    [10, 0, 20],
+    [15, 20, 0]
+]
+rota, dist = caixeiro_viajante(cidades)
+print(f"Melhor rota: {rota}, Distância: {dist}")
+
+```
 
 # Capítulo 2
 
@@ -131,3 +224,75 @@ Ao contrário do que ocorre com as inserções, a eliminação de elementos semp
 O que é mais usado arrays ou listas? Depende do caso em que se aplica. Entretanto os arrays são mais comuns porque permitem acesso aleatório. Existem dois tipos de acessos: o aleatório e o sequencial.  O sequencial significa ler os elementos, um por um, começando pelo primeiro. Listas encadeadas só podem lidar com acesso sequencial. Se você quiser ler o décimo elemento de uma lista encadeada, primeiro precisará ler os nove  elementos anteriores para chegar ao endereço do décimo elemento. O aleatório permite que você pule direto para o décimo elemento. Muitos casos requerem o acesso aleatório, o que faz os arrays serem mais utilizados. Os arrays e listas são usados para implementar outras estruturas de dados.
 
 ## Ordenação por seleção
+
+Ordenação por Seleção (Selection Sort)
+
+## Problema
+Tenho uma lista de artistas e o número de plays de cada um. Quero ordenar do mais tocado pro menos tocado.
+
+## Como funciona o Selection Sort
+1. Acha o artista mais tocado → coloca no início
+2. Acha o próximo mais tocado → coloca na segunda posição
+3. Repete até terminar a lista
+
+## Exemplo com artistas
+Lista original:
+
+Artista    Plays
+A          120
+B          450
+C          210
+D          80
+
+## Passos:
+1. Acha o maior → B (450) → troca com A
+
+B(450) A(120) C(210) D(80)
+
+2. Acha o maior (restante) → C (210) → troca com A
+
+B(450) C(210) A(120) D(80)
+
+3. Acha o maior (restante) → A (120) → troca com D
+
+B(450) C(210) A(120) D(80)
+
+4. Pronto! Lista ordenada:
+
+B(450) C(210) A(120) D(80)
+
+
+## Código em Python
+
+```python
+
+def selection_sort(arr):
+    for i in range(len(arr)):
+        # acha o índice do máximo (restante)
+        max_idx = i
+        for j in range(i+1, len(arr)):
+            if arr[j][1] > arr[max_idx][1]:
+                max_idx = j
+        # troca
+        arr[i], arr[max_idx] = arr[max_idx], arr[i]
+    return arr
+
+# Exemplo
+artistas = [
+    ('A', 120),
+    ('B', 450),
+    ('C', 210),
+    ('D', 80)
+]
+
+ordenados = selection_sort(artistas)
+print(ordenados)
+# Saída: [('B', 450), ('C', 210), ('A', 120), ('D', 80)]
+
+```
+
+## Complexidade
+- Tempo: O(n^2)
+- Espaço: O(1) (in-place)
+
+Não é o mais eficiente, mas é simples de entender 
