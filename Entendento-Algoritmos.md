@@ -238,11 +238,12 @@ Tenho uma lista de artistas e o número de plays de cada um. Quero ordenar do ma
 ## Exemplo com artistas
 Lista original:
 
-Artista    Plays
-A          120
-B          450
-C          210
-D          80
+    Artista    Plays
+   
+      A          120
+      B          450
+      C          210
+      D          80
 
 ## Passos:
 1. Acha o maior → B (450) → troca com A
@@ -290,9 +291,139 @@ print(ordenados)
 # Saída: [('B', 450), ('C', 210), ('A', 120), ('D', 80)]
 
 ```
-
 ## Complexidade
 - Tempo: O(n^2)
 - Espaço: O(1) (in-place)
 
 Não é o mais eficiente, mas é simples de entender 
+
+# Resumo
+
+## Guia de Algoritmos e Estruturas de Dados
+
+## Capítulo 1: Introdução a Algoritmos
+
+* **Pesquisa Binária**
+
+A pesquisa binária é um algoritmo de busca eficiente. Sua entrada deve ser obrigatoriamente uma **lista ordenada.**
+
+  * Sucesso: Retorna a posição (índice) do elemento.
+
+  * Falha: Retorna None.
+
+**Comparação de Performance**
+
+Para uma lista de n elementos:
+
+  * **Pesquisa Simples (Linear):** Testa um por um. No pior caso, leva n etapas.
+  
+  * **esquisa Binária:** Divide a lista ao meio a cada passo. No pior caso, leva log_2 n etapas.
+
+        +-------------------------+------------------+------------------+
+        | Elementos               | Pesquisa Simples | Pesquisa Binária |
+        +-------------------------+------------------+------------------+
+        | 100                     | 100 ms           | 7 ms             |
+        | 10.000                  | 10 segundos      | 14 ms            |
+        | 1.000.000.000           | 11 dias          | 30 ms            |
+        +-------------------------+------------------+------------------+
+
+## Notação Big O
+
+A notação Big O não mede o tempo em segundos, mas o **crescimento do número de operações** conforme o tamanho da entrada (n) aumenta. Ela foca no **pior cenário.**
+
+**Tempos de Execução Comuns (do mais rápido ao mais lento):**
+
+   1. O(log n): Tempo logarítmico (ex: Pesquisa Binária).
+ 
+   2. O(n): Tempo linear (ex: Pesquisa Simples).
+   
+   3. O(nlog n): Algoritmos rápidos de ordenação (ex: Quicksort).
+   
+   4. O(n^2): Algoritmos lentos de ordenação (ex: Ordenação por Seleção).
+   
+   5. O(n!): Tempo fatorial, extremamente lento (ex: Caixeiro Viajante).Exemplo de Código: Pesquisa Binária em Python
+
+```python
+
+def pesquisa_binaria(lista, item):
+    baixo = 0
+    alto = len(lista) - 1
+
+    while baixo <= alto:
+        meio = (baixo + alto) // 2 # Arredonda para baixo automaticamente
+        chute = lista[meio]
+
+        if chute == item:
+            return meio
+        if chute > item:
+            alto = meio - 1
+        else:
+            baixo = meio + 1
+    return None
+
+minha_lista = [1, 3, 5, 7, 9]
+print(pesquisa_binaria(minha_lista, 3))  # Saída: 1
+print(pesquisa_binaria(minha_lista, -1)) # Saída: None
+
+```
+
+## Capítulo 2: Ordenação por Seleção
+
+## Como funciona a memória
+A memória do computador funciona como um conjunto de gavetas endereçadas. Para armazenar múltiplos itens, usamos principalmente duas estruturas: **Arrays e Listas Encadeadas.**
+
+**Arrays vs. Listas Encadeadas**
+
+  * **Arrays:** Todos os itens ficam grudados (contíguos). Permite o **Acesso Aleatório** (pular direto para qualquer índice).
+
+  * **Listas Encadeadas:** Os itens ficam espalhados. Cada item guarda o endereço do próximo. Só permite **Acesso Sequencial** (ler um por um).
+
+        +------------------------+------------------+------------------------+
+        | Operação               | Arrays           | Listas Encadeadas      |
+        +------------------------+------------------+------------------------+
+        | Leitura                | O(1)             | O(n)                   |
+        | Inserção               | O(n)             | O(1)                   |
+        | Deleção                | O(n)             | O(1)                   |
+        +------------------------+------------------+------------------------+
+
+    **Nota:** Inserir ou deletar em Arrays é lento porque exige deslocar todos os elementos seguintes na memória. Já nas listas, basta alterar o "ponteiro" do endereço.
+
+## Algoritmo: Ordenação por Seleção (Selection Sort)
+Este algoritmo ordena uma lista buscando repetidamente o maior (ou menor) elemento e movendo-o para a posição correta.
+
+**Exemplo Prático (Ranking de Artistas por Plays)**
+
+ 1. Percorra a lista e encontre o artista com mais plays.
+
+ 2. Mova-o para uma nova lista (ou para o início da atual).
+
+ 3. Repita o processo para os itens restantes até que a lista esteja vazia/ordenada.
+
+**Código em Python: Selection Sort**
+
+```python
+
+def busca_maior(arr):
+    maior = arr[0][1]
+    maior_indice = 0
+    for i in range(1, len(arr)):
+        if arr[i][1] > maior:
+            maior = arr[i][1]
+            maior_indice = i
+    return maior_indice
+
+def ordenacao_selecao(arr):
+    novo_arr = []
+    for i in range(len(arr)):
+        # Busca o maior elemento restante
+        maior = busca_maior(arr)
+        # Remove da lista original e adiciona na nova
+        novo_arr.append(arr.pop(maior))
+    return novo_arr
+
+artistas = [('A', 120), ('B', 450), ('C', 210), ('D', 80)]
+print(ordenacao_selecao(artistas)) 
+# Saída: [('B', 450), ('C', 210), ('A', 120), ('D', 80)]
+
+```
+**Complexidade:** O(n^2). Embora simples, torna-se muito lento para listas grandes se comparado ao Quicksort ou Merge Sort.
